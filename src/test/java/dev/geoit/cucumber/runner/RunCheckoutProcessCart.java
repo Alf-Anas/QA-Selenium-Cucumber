@@ -6,9 +6,9 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/java/dev/geoit/cucumber/features/product-cart.feature",
+        features = "src/test/java/dev/geoit/cucumber/features/checkout-process.feature",
         glue = "dev.geoit.cucumber.stepDef",
-        plugin = {"pretty", "html:target/cucumber-reports-product-cart.html"}
+        plugin = {"pretty", "html:target/cucumber-reports-checkout-process.html"}
 )
-public class RunProductCart {
+public class RunCheckoutProcessCart {
 }

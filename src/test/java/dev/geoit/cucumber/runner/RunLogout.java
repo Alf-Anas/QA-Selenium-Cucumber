@@ -6,10 +6,10 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/java/dev/geoit/cucumber/features/login.feature",
+        features = "src/test/java/dev/geoit/cucumber/features/logout.feature",
         glue = "dev.geoit.cucumber.stepDef",
-        plugin = {"pretty", "html:target/cucumber-reports-login.html"
+        plugin = {"pretty", "html:target/cucumber-reports-logout.html"
         }
 )
-public class RunLogin {
+public class RunLogout {
 }

@@ -1,5 +1,6 @@
 package dev.geoit.cucumber.stepDef;
 
+import io.cucumber.java.After;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -17,7 +18,7 @@ import java.time.Duration;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
-public class login {
+public class LoginStepDef {
     WebDriver driver;
     String baseUrl = "https://www.saucedemo.com/";
     String btnLoginId = "login-button";
@@ -26,11 +27,15 @@ public class login {
     String pageInventory = "inventory.html";
     String errorDivXPath = "//*[@id=\"login_button_container\"]/div/form/div[3]/h3";
 
+    Boolean stayAlive = false;
+
     @Given("The Saucedemo application is open")
-    public void the_saucedemo_application_is_open() {
+    public void theSaucedemoApplicationIsOpen() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.get(baseUrl);
+
+        WebDriverSingleton.setDriver(driver);
 
         // Check that the application is ready
         assertTrue("The Saucedemo application did not load successfully",
@@ -63,7 +68,6 @@ public class login {
         // Verify the current URL
         String currentUrl = driver.getCurrentUrl();
         assertEquals("The user is not on the expected page after login", baseUrl + pageInventory, currentUrl);
-
     }
 
     @When("The user enters the invalid username {string}")
@@ -86,4 +90,18 @@ public class login {
         WebElement errorDiv = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(errorDivXPath)));
         assertTrue("Login was not successful", errorDiv.isDisplayed());
     }
+
+    @And("Make Browser Stay Alive")
+    public void makeBrowserStayAlive() {
+        stayAlive = true;
+    }
+
+    @After
+    public void closeBrowser() {
+        // Close the browser after each test
+        if (driver != null && !stayAlive) {
+            driver.quit();
+        }
+    }
+
 }
